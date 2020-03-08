@@ -245,6 +245,14 @@ public class StepDefsUserStory12 {
         assertTrue(Checkout.ConfirmationMessage.isDisplayed());
     }
 
+    @When("^I enter email address$")
+    public void iEnterEmailAddress() {
+        logInPage.enterMail();
+    }
 
+    @And("^I enter password$")
+    public void iEnterPassword() {
+        logInPage.enterPassword();
+    }
 
 }

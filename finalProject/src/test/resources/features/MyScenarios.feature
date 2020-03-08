@@ -1,13 +1,13 @@
-Feature: User edits his/hers account
+Feature: User manipulates with his/hers account
 
   Background:
     Given I am on the Log In Page
-    And I enter email address
-      | email            |
-      | onetwo@mail.com |
-    And I enter password
-      | password |
-      | onetwo  |
+    And I enter email
+      | email              |
+      | testemail@email.com |
+    And Enter password
+      | password    |
+      | onetwothree |
     And I press Log In
 
   @elementsPresence
@@ -31,9 +31,9 @@ Feature: User edits his/hers account
   Scenario: I edit account info
     When I click on Edit Account submenu
     And I edit following info
-      | name | lastName | email            | phone  |
-      | John | Doe      | onetwo@mail.com | 098765 |
-    And I click Continue
+      | name | lastName | email              | phone  |
+      | John | Doe      | testemail@email.com | 098765 |
+    And Click Continue
     Then Success message appears
 
   @address
@@ -50,7 +50,7 @@ Feature: User edits his/hers account
       | region |
       | Angus  |
     And I choose Yes option
-    And I click Continue
+    And Click Continue
     Then Success message appears
 
 
@@ -68,7 +68,7 @@ Feature: User edits his/hers account
       | region  |
       | Alabama |
     And I choose Yes option
-    And I click Continue
+    And Click Continue
     And Success message appears
     Then I check new address is default
     And I check old address is not default

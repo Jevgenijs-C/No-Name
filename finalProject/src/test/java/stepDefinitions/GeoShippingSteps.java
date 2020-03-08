@@ -1,6 +1,5 @@
 package stepDefinitions;
 
-import cucumber.api.PendingException;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -8,13 +7,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages_sample.CheckoutPage2;
 
-import sun.rmi.runtime.Log;
 
 public class GeoShippingSteps {
     private WebDriver driver;

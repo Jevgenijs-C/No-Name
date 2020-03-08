@@ -78,12 +78,12 @@ public class CheckoutPage2 {
 
     public void addToCart() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, 20);
-        wait.until(ExpectedConditions.visibilityOf(desktops)).click();
-        // desktops.click();
-        wait.until(ExpectedConditions.visibilityOf(iMac)).click();
-        // iMac.click();
-        wait.until(ExpectedConditions.visibilityOf(iMacAddtoCart)).click();
-        //  iMacAddtoCart.click();
+        wait.until(ExpectedConditions.visibilityOf(desktops));/*.click();*/
+         desktops.click();
+        wait.until(ExpectedConditions.visibilityOf(iMac));/*.click();*/
+         iMac.click();
+        wait.until(ExpectedConditions.visibilityOf(iMacAddtoCart));/*.click();*/
+         iMacAddtoCart.click();
 
     }
 

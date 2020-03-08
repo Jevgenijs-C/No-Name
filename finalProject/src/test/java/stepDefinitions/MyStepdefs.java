@@ -12,10 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages_sample.AccountPage;
-import pages_sample.AddressPage;
-import pages_sample.EditAccPage;
-import pages_sample.LogInPage;
+import pages_sample.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,14 +21,14 @@ import java.util.concurrent.TimeUnit;
 public class MyStepdefs {
 
     private WebDriver driver;
-    static LogInPage logInPage;
+    static LogInAccPage logInAccPage;
     static EditAccPage editAccPage;
     static AddressPage addressPage;
     static AccountPage accountPage;
 
     public MyStepdefs() {
         this.driver = Hooks.driver;
-        logInPage = PageFactory.initElements(Hooks.driver, LogInPage.class);
+        logInAccPage = PageFactory.initElements(Hooks.driver, LogInAccPage.class);
         editAccPage = PageFactory.initElements(Hooks.driver, EditAccPage.class);
         addressPage = PageFactory.initElements(Hooks.driver, AddressPage.class);
         accountPage = PageFactory.initElements(Hooks.driver, AccountPage.class);
@@ -44,23 +41,30 @@ public class MyStepdefs {
     }
 
     //Loging in
-    @When("^I enter email address$")
+/*    @When("^I enter email address$")
     public void iEnterEmailAddress(DataTable dataTable) {
         List<Map<String, String>> editInfo = dataTable.asMaps(String.class, String.class);
         String email = editInfo.get(0).get("email");
         logInPage.enterMail(email);
+    }*/
+    @When ("^I enter email$")
+    public void iEnterEmail(DataTable dataTable) {
+        List<Map<String, String>> editInfo = dataTable.asMaps(String.class, String.class);
+        String email = editInfo.get(0).get("email");
+        logInAccPage.enterMail(email);
     }
 
-    @And("^I enter password$")
-    public void i_enter_password(DataTable dataTable) throws Throwable {
+
+    @And("^Enter password$")
+    public void enterPassword(DataTable dataTable) {
         List<Map<String, String>> editInfo = dataTable.asMaps(String.class, String.class);
         String password = editInfo.get(0).get("password");
-        logInPage.enterPassword(password);
+        logInAccPage.enterPassword(password);
     }
 
     @And("^I press Log In$")
     public void i_press_log_in() throws Throwable {
-        logInPage.logIn();
+        logInAccPage.logIn();
     }
 
     @Then("^Account page is opened$")
@@ -88,8 +92,8 @@ public class MyStepdefs {
         editAccPage.editPhone(phone);
     }
 
-    @And("^I click Continue$")
-    public void iClickContinue() {
+    @And("^Click Continue$")
+    public void clickContinue() {
         editAccPage.submitEditing();
     }
 
@@ -182,6 +186,7 @@ public class MyStepdefs {
             Assert.assertEquals(listNames.get(i), accountPage.listOfItems().get(i).getText());
         }
     }
+
 
 
 }

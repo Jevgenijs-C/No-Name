@@ -1,13 +1,13 @@
 package stepDefinitions;
 
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import cucumber.api.PendingException;
+/*import com.gargoylesoftware.htmlunit.html.DomNode;
+import cucumber.api.PendingException;*/
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import gherkin.lexer.Th;
-import javafx.scene.layout.Background;
+/*import gherkin.lexer.Th;
+import javafx.scene.layout.Background;*/
 import org.junit.After;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -75,6 +75,7 @@ public class ReviewSteps {
     public void iSelectRating() {
         Review.selectRatingOne();
     }
+
     @And("^I click Continue$")
     public void iClickContinue() {
         Review.clickContinueReview();

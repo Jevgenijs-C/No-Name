@@ -1,3 +1,4 @@
+/*
 package runners;
 
 import cucumber.api.CucumberOptions;
@@ -13,10 +14,13 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:cucumber-report/html-report",
                 "junit:cucumber-report/junit-report.xml",
                 "json:cucumber-report/json-report.json"},
-        tags = {/*"@Login", "@AddToCart", "@Checkout", "@UserStory12"*/},
+        tags = {*/
+/*"@Login", "@AddToCart", "@Checkout", "@UserStory12"*//*
+},
         glue = {"stepDefinitions"}
 )
 public class Runner_UserStory12 {
 
 
 }
+*/

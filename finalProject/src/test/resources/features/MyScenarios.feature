@@ -3,11 +3,11 @@ Feature: User edits his/hers account
   Background:
     Given I am on the Log In Page
     And I enter email address
-      | email            |
-      | onetwo@mail.com |
+      | email               |
+      | testemail@email.com |
     And I enter password
-      | password |
-      | onetwo  |
+      | password    |
+      | onetwothree |
     And I press Log In
 
   @elementsPresence
@@ -31,8 +31,8 @@ Feature: User edits his/hers account
   Scenario: I edit account info
     When I click on Edit Account submenu
     And I edit following info
-      | name | lastName | email            | phone  |
-      | John | Doe      | onetwo@mail.com | 098765 |
+      | name | lastName | email               | phone  |
+      | John | Doe      | testemail@email.com | 098765 |
     And I click Continue
     Then Success message appears
 

@@ -96,9 +96,9 @@ public class MyStepdefs {
 
     @Then("^Success message appears$")
     public void successMessageAppears() {
-        WebDriverWait wait = (WebDriverWait)
+       /* WebDriverWait wait = (WebDriverWait)
                 new WebDriverWait(driver, 10).ignoring(StaleElementReferenceException.class);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert-success")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert-success")));*/
         editAccPage.successfulEdit().isDisplayed();
     }
 

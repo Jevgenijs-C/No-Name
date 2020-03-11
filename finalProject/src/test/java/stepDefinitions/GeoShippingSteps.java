@@ -18,14 +18,15 @@ import sun.rmi.runtime.Log;
 
 public class GeoShippingSteps {
     private WebDriver driver;
-    static CheckoutPage checkoutPage;
+    private CheckoutPage checkoutPage;
+
 
 
     public GeoShippingSteps() {
 
         this.driver = Hooks.driver;
         checkoutPage = PageFactory.initElements(Hooks.driver, CheckoutPage.class);
-
+        checkoutPage.setDriver(driver);
     }
     @Given("^demoshop homepage is opened$")
     public void demoshop_homepage_is_opened() throws Throwable {

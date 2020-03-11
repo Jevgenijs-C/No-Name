@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages_sample.EditAccPage;
 import pages_sample.LogInPage;
 import sun.rmi.runtime.Log;
 
@@ -19,12 +20,14 @@ public class MyStepdefs {
 
     private WebDriver driver;
     static LogInPage logInPage;
+    static EditAccPage editAccPage;
+
 
 
     public MyStepdefs() {
-
         this.driver = Hooks.driver;
         logInPage = PageFactory.initElements(Hooks.driver, LogInPage.class);
+        editAccPage = PageFactory.initElements(Hooks.driver, EditAccPage.class);
 
     }
 
@@ -33,6 +36,7 @@ public class MyStepdefs {
         driver.get("http://www.demoshop24.com/index.php?route=account/login");
     }
 
+    //Loging in
     @When("^I enter email address$")
     public void iEnterEmailAddress() {
         logInPage.enterMail();
@@ -55,5 +59,45 @@ public class MyStepdefs {
                 driver.getCurrentUrl());
     }
 
+    //Edit Account Info
+    @When("^I click on Edit Account submenu$")
+    public void iClickOnEditAccountSubmenu() {
+        editAccPage.editAcc();
+    }
 
+   /* @And("^I edit \"([^\"]*)\"$")
+    public void iEdit(String name, String lastName, String email, String phone) throws Throwable {
+       editAccPage.editName(name);
+       editAccPage.editLastName(lastName);
+       editAccPage.editEmail(email);
+       editAccPage.editPhone(phone);
+    } */
+
+    @And("^I edit \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
+    public void iEdit(String name, String lastName, String email, String phone) throws Throwable {
+        editAccPage.editName(name);
+        editAccPage.editLastName(lastName);
+        editAccPage.editEmail(email);
+        editAccPage.editPhone(phone);
+    }
+
+
+    @And("^I click Continue$")
+    public void iClickContinue() {
+    editAccPage.submitEditing();
+    }
+
+    @Then("^Success message appears$")
+    public void successMessageAppears() {
+        WebDriverWait wait = (WebDriverWait)
+                new WebDriverWait(driver, 10).ignoring(StaleElementReferenceException.class);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert-success")));
+    editAccPage.successfulEdit().isDisplayed();
+    }
+
+
+    @Given("^I am on account page$")
+    public void iAmOnAccountPage() {
+        driver.get("http://www.demoshop24.com/index.php?route=account/account");
+    }
 }

@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class EditAccPage {
-    @FindBy(how = How.XPATH, using = "//*[@id='column-right']/div/a[2]")
+    @FindBy(how = How.CSS, using = "#column-right > div > a:nth-child(2)")
     private WebElement editSubmenu;
     @FindBy(how = How.ID, using = "input-firstname")
     private WebElement nameField;
@@ -15,8 +15,10 @@ public class EditAccPage {
     private WebElement emailField;
     @FindBy (how = How.ID, using = "input-telephone")
     private WebElement phoneField;
-    @FindBy (how = How.ID, using = "//input[@value='Continue']")
+    @FindBy (how = How.XPATH, using = "//input[@value='Continue']")
     private WebElement submitButton;
+    @FindBy (how = How.CLASS_NAME, using = "alert-success")
+    private WebElement successMessage;
 
 
     public void editAcc(){
@@ -40,5 +42,9 @@ public class EditAccPage {
     }
     public void submitEditing(){
         submitButton.click();
+    }
+
+    public WebElement successfulEdit(){
+        return successMessage;
     }
 }

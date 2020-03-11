@@ -13,10 +13,10 @@ public class LogInPage {
     private WebElement loginButton;
 
     public void enterMail(){
-        eMailField.sendKeys("testt@test.com");
+        eMailField.sendKeys("testmail@mail.com");
     }
     public void enterPassword(){
-        passwordField.sendKeys("12345");
+        passwordField.sendKeys("onetwo");
     }
     public void logIn(){
         loginButton.click();

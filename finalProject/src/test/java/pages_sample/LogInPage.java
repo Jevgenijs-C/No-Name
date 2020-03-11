@@ -5,6 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class LogInPage {
+
+
     @FindBy (how = How.ID, using = "input-email")
     private WebElement eMailField;
     @FindBy (how = How.ID, using = "input-password")

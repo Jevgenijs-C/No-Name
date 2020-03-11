@@ -1,4 +1,6 @@
- Feature: Feature
+@Login
+
+Feature: Feature
 Background:
     Given I am on the Log In Page
 

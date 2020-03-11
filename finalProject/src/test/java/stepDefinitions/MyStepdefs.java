@@ -3,6 +3,7 @@ package stepDefinitions;
 import cucumber.api.PendingException;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -11,7 +12,9 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages_sample.AddressPage;
 import pages_sample.EditAccPage;
 import pages_sample.LogInPage;
 import sun.rmi.runtime.Log;
@@ -21,13 +24,15 @@ public class MyStepdefs {
     private WebDriver driver;
     static LogInPage logInPage;
     static EditAccPage editAccPage;
-
+    static AddressPage addressPage;
 
 
     public MyStepdefs() {
         this.driver = Hooks.driver;
         logInPage = PageFactory.initElements(Hooks.driver, LogInPage.class);
         editAccPage = PageFactory.initElements(Hooks.driver, EditAccPage.class);
+        addressPage = PageFactory.initElements(Hooks.driver, AddressPage.class);
+
 
     }
 
@@ -45,7 +50,7 @@ public class MyStepdefs {
 
     @And("^I enter password$")
     public void i_enter_password() throws Throwable {
-    logInPage.enterPassword();
+        logInPage.enterPassword();
     }
 
     @And("^I press Log In$")
@@ -65,14 +70,6 @@ public class MyStepdefs {
         editAccPage.editAcc();
     }
 
-   /* @And("^I edit \"([^\"]*)\"$")
-    public void iEdit(String name, String lastName, String email, String phone) throws Throwable {
-       editAccPage.editName(name);
-       editAccPage.editLastName(lastName);
-       editAccPage.editEmail(email);
-       editAccPage.editPhone(phone);
-    } */
-
     @And("^I edit \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
     public void iEdit(String name, String lastName, String email, String phone) throws Throwable {
         editAccPage.editName(name);
@@ -81,10 +78,9 @@ public class MyStepdefs {
         editAccPage.editPhone(phone);
     }
 
-
     @And("^I click Continue$")
     public void iClickContinue() {
-    editAccPage.submitEditing();
+        editAccPage.submitEditing();
     }
 
     @Then("^Success message appears$")
@@ -92,12 +88,50 @@ public class MyStepdefs {
         WebDriverWait wait = (WebDriverWait)
                 new WebDriverWait(driver, 10).ignoring(StaleElementReferenceException.class);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("alert-success")));
-    editAccPage.successfulEdit().isDisplayed();
+        editAccPage.successfulEdit().isDisplayed();
     }
 
+    //Adding Address
+    @When("^I click on Address book$")
+    public void iClickOnAddressBook() {
+        addressPage.addressSubmenu();
+    }
 
-    @Given("^I am on account page$")
-    public void iAmOnAccountPage() {
-        driver.get("http://www.demoshop24.com/index.php?route=account/account");
+    @And("^I click on New Address button$")
+    public void iClickOnNewAddressButton() {
+        addressPage.addNewAddress();
+    }
+
+    @And("^I enter \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
+    public void iEnter(String name, String lastName, String address, String city, String postCode) throws Throwable {
+        addressPage.addName(name);
+        addressPage.addLastName(lastName);
+        addressPage.addAddress(address);
+        addressPage.addCity(city);
+        addressPage.addPostCode(postCode);
+    }
+
+    @And("^I choose \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void iChooseAnd(String country, String region) throws Throwable {
+        addressPage.chooseCountry(country);
+        addressPage.chooseRegion(region);
+    }
+
+    @And("^I choose Yes option$")
+    public void iChooseYesOption() {
+        addressPage.checkDefault();
+        addressPage.chooseYes();
+    }
+
+// Adding Second address
+    @Then("^I check new address is default$")
+    public void iCheckNewAddressIsDefault() {
+        addressPage.checkNonDefault();
+        Assert.assertTrue(addressPage.isYesChosen());
+    }
+
+    @And("^I check old address is not default$")
+    public void iCheckOldAddressIsNotDefault() {
+        Assert.assertFalse(addressPage.isYesChosen());
     }
 }

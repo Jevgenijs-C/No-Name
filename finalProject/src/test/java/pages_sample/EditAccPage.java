@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class EditAccPage {
-    @FindBy(how = How.CSS, using = "#column-right > div > a:nth-child(2)")
+    @FindBy(how = How.CSS, using = "#column-right [href$='edit']")
     private WebElement editSubmenu;
     @FindBy(how = How.ID, using = "input-firstname")
     private WebElement nameField;

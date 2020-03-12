@@ -1,9 +1,8 @@
 package stepDefinitions;
 
-import cucumber.api.PendingException;
+import cucumber.api.DataTable;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -12,16 +11,15 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages_sample.AccountPage;
 import pages_sample.AddressPage;
 import pages_sample.EditAccPage;
 import pages_sample.LogInPage;
-import sun.rmi.runtime.Log;
 
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class MyStepdefs {
 
@@ -37,7 +35,7 @@ public class MyStepdefs {
         logInPage = PageFactory.initElements(Hooks.driver, LogInPage.class);
         editAccPage = PageFactory.initElements(Hooks.driver, EditAccPage.class);
         addressPage = PageFactory.initElements(Hooks.driver, AddressPage.class);
-        accountPage =  PageFactory.initElements(Hooks.driver, AccountPage.class);
+        accountPage = PageFactory.initElements(Hooks.driver, AccountPage.class);
 
     }
 
@@ -48,14 +46,17 @@ public class MyStepdefs {
 
     //Loging in
     @When("^I enter email address$")
-    public void iEnterEmailAddress() {
-        logInPage.enterMail();
+    public void iEnterEmailAddress(DataTable dataTable) {
+        List<Map<String, String>> editInfo = dataTable.asMaps(String.class, String.class);
+        String email = editInfo.get(0).get("email");
+        logInPage.enterMail(email);
     }
 
-
     @And("^I enter password$")
-    public void i_enter_password() throws Throwable {
-        logInPage.enterPassword();
+    public void i_enter_password(DataTable dataTable) throws Throwable {
+        List<Map<String, String>> editInfo = dataTable.asMaps(String.class, String.class);
+        String password = editInfo.get(0).get("password");
+        logInPage.enterPassword(password);
     }
 
     @And("^I press Log In$")
@@ -75,8 +76,13 @@ public class MyStepdefs {
         editAccPage.editAcc();
     }
 
-    @And("^I edit \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-    public void iEdit(String name, String lastName, String email, String phone) throws Throwable {
+    @And("^I edit following info$")
+    public void iEditFollowingInfo(DataTable dataTable) {
+        List<Map<String, String>> editInfo = dataTable.asMaps(String.class, String.class);
+        String name = editInfo.get(0).get("name");
+        String lastName = editInfo.get(0).get("lastName");
+        String email = editInfo.get(0).get("email");
+        String phone = editInfo.get(0).get("phone");
         editAccPage.editName(name);
         editAccPage.editLastName(lastName);
         editAccPage.editEmail(email);
@@ -107,8 +113,17 @@ public class MyStepdefs {
         addressPage.addNewAddress();
     }
 
-    @And("^I enter \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
-    public void iEnter(String name, String lastName, String address, String city, String postCode) throws Throwable {
+    @And("^I enter name, lastName, address, city, postCode$")
+    public void iEnterNameLastNameAddressCityPostCode(DataTable dataTable) {
+        List<Map<String, String>> addressInfo = dataTable.asMaps(String.class, String.class);
+        String name = addressInfo.get(0).get("name");
+        String lastName = addressInfo.get(0).get("lastName");
+        String address = addressInfo.get(0).get("address");
+        ;
+        String city = addressInfo.get(0).get("city");
+        ;
+        String postCode = addressInfo.get(0).get("postCode");
+        ;
         addressPage.addName(name);
         addressPage.addLastName(lastName);
         addressPage.addAddress(address);
@@ -116,46 +131,58 @@ public class MyStepdefs {
         addressPage.addPostCode(postCode);
     }
 
-    @And("^I choose \"([^\"]*)\" and \"([^\"]*)\"$")
-    public void iChooseAnd(String country, String region) throws Throwable {
+    @And("^I choose country$")
+    public void iChooseCountry(DataTable dataTable) {
+        List<Map<String, String>> countryInfo = dataTable.asMaps(String.class, String.class);
+        String country = countryInfo.get(0).get("country");
         addressPage.chooseCountry(country);
+    }
+
+    @And("^I choose region$")
+    public void iChooseRegion(DataTable dataTable) throws InterruptedException {
+        List<Map<String, String>> regionInfo = dataTable.asMaps(String.class, String.class);
+        /*WebDriverWait wait = (WebDriverWait)
+                new WebDriverWait(driver, 10).ignoring(StaleElementReferenceException.class);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("input-zone")));*/
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        String region = regionInfo.get(0).get("region");
         addressPage.chooseRegion(region);
     }
 
     @And("^I choose Yes option$")
-    public void iChooseYesOption() {
-        addressPage.checkDefault();
+    public void iChooseYesOption() throws InterruptedException {
+        WebDriverWait wait = (WebDriverWait)
+                new WebDriverWait(driver, 10).ignoring(StaleElementReferenceException.class);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#column-right [href$='address']")));
         addressPage.chooseYes();
     }
 
-// Adding Second address
+    // Adding Second address
     @Then("^I check new address is default$")
     public void iCheckNewAddressIsDefault() {
-        addressPage.checkNonDefault();
+        addressPage.checkDefault();
         Assert.assertTrue(addressPage.isYesChosen());
     }
 
     @And("^I check old address is not default$")
     public void iCheckOldAddressIsNotDefault() {
+        addressPage.checkNonDefault();
         Assert.assertFalse(addressPage.isYesChosen());
     }
+    // This step is for making test able to run more then once
+    @And("^I delete old address$")
+    public void iDeleteOldAddress() {
+        addressPage.deleteNotDefault();
 
+    }
 // Elements presence
-
-    @When("^I check \"([^\"]*)\" are present$")
-    public void iCheckArePresent(List<String> listNames) throws Throwable {
-
-    }
-
-    @And("^I edit following info$")
-    public void iEditFollowingInfo() {
-
-    }
 
     @When("^I check elements are present$")
     public void iCheckElementsArePresent(List<String> listNames) {
-        for (int i=0; i<listNames.size(); i++){
+        for (int i = 0; i < listNames.size(); i++) {
             Assert.assertEquals(listNames.get(i), accountPage.listOfItems().get(i).getText());
         }
     }
+
+
 }

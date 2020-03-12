@@ -20,7 +20,6 @@ public class MyStepdefs {
     private WebDriver driver;
     static LogInPage logInPage;
 
-
     public MyStepdefs() {
 
         this.driver = Hooks.driver;

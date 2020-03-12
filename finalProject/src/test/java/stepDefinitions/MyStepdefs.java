@@ -29,7 +29,6 @@ public class MyStepdefs {
     static AddressPage addressPage;
     static AccountPage accountPage;
 
-
     public MyStepdefs() {
         this.driver = Hooks.driver;
         logInPage = PageFactory.initElements(Hooks.driver, LogInPage.class);

@@ -9,8 +9,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.Select;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 public class CheckoutPage {
-    //    driver = new chromdriver();
+   //    driver = new chromdriver();
     WebDriver driver;
     WebDriverWait wait = new WebDriverWait(driver, 10);
     @FindBy(how = How.XPATH, using = "//a[.='Desktops']")
@@ -59,16 +63,16 @@ public class CheckoutPage {
     private WebElement Step5Continue;
     @FindBy(how = How.XPATH, using = "//strong[contains(.,'Shipping')]")
     private WebElement ShippingRate;
-    @FindBy(how = How.XPATH, using = "//strong[contains(.,'Shipping')]/parent::*/following-sibling::*")
-    private WebElement ShippingRateVALUE;
+    // @FindBy(how = How.XPATH, using = "//strong[contains(.,'Shipping')]/parent::following-sibling::*")
+    private String ShippingRateVALUE;
     @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'Eco Tax')]")
     private WebElement EcoTax;
-    @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'Eco Tax')]/parent::*/following-sibling::*")
-    private WebElement EcoTaxVALUE;
+    // @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'Eco Tax')]/parent::following-sibling::*")
+    private String EcoTaxVALUE;
     @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'VAT')]")
     private WebElement VAT;
-    @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'VAT')]/parent::*/following-sibling::*")
-    private WebElement VATVALUE;
+    // @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'VAT')]/parent::following-sibling::")
+    private String VATVALUE;
     @FindBy(how = How.CSS, using = "a[href='#collapse-payment-address']")
     private WebElement BillingDetails;
     @FindBy(how = How.XPATH, using = "//option[@value='117']")
@@ -82,7 +86,6 @@ public class CheckoutPage {
     }
 
     public void addToCart() {
-
         desktops.click();
         iMac.click();
         iMacAddtoCart = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='product-layout product-grid col-lg-4 col-md-4 col-sm-6 col-xs-12']//i[@class='fa fa-shopping-cart']")));
@@ -114,9 +117,65 @@ public class CheckoutPage {
 
     }
 
- //   public String collectShippingRateData(){
+    //Getter
+    public String GETcollectShippingRateDataUK() {
+        return ShippingRateVALUE;
+    }
+
+    //Setter
+    public void SETcollectShippingRateDataUK(String ShippingRateVALUE) {
+
+        if (ShippingRate.isDisplayed()) {
+
+            this.ShippingRateVALUE = driver.findElement(By.xpath("//strong[contains(.,'Shipping')]/parent::*/following-sibling::*")).getText();
+            System.out.println(ShippingRateVALUE);
+} else {
+        this.ShippingRateVALUE = null;
+        System.out.println("Shipping rate is not displayed");
+
+        }
 
 
-    //}
+        }
+
+//Getter
+public String GETcollectEcoTaxDataUK() {
+        return EcoTaxVALUE;
+        }
+
+//Setter
+public void SETcollectEcoTaxDataUK(String EcoTaxVALUE) {
+
+        if (EcoTax.isDisplayed()) {
+        this.EcoTaxVALUE = driver.findElement(By.xpath("//td[@colspan='4']/strong[contains(.,'Eco Tax')]/parent::*/following-sibling::*")).getText();
+        System.out.println(EcoTaxVALUE);
+        } else {
+        this.EcoTaxVALUE = null;
+        System.out.println("Eco Tax is not displayed");
+
+        }
+
+        }
+
+//Getter
+public String GETcollectVATDataUK() {
+        return VATVALUE;
+        }
+
+//Setter
+public void SETcollectVATDataUK(String VATVALUE) {
+
+        if (VAT.isDisplayed()) {
+        this.VATVALUE = driver.findElement(By.xpath("//td[@colspan='4']/strong[contains(.,'VAT')]/parent::*/following-sibling::*")).getText();
+        System.out.println(VATVALUE);
+        } else {
+        this.VATVALUE = null;
+        System.out.println("VAT is not displayed");
+
+        }
+
+        }
+
+
 
 }

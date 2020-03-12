@@ -1,12 +1,6 @@
 Feature: For different shipping zones setup different shipping price and taxes.
 
-  Background: Product is added to cart. User is on "checkout" page in section "Step 6: Confirm Order", all previous
-  steps are completed, selected country in section "Step 2: Billing Details" is United Kingdom, unit price details
-  "Sub-Total", "Flat Shipping Rate", "Eco Tax", "VAT", "Total" are displayed and user collects their values. Then in
-  section "Step 2: Billing Details" user selects country Latvia, and selects Region / State "Adazu novads", and in
-  section "Step 6: Confirm Order" user collects values of unit price details "Sub-Total", "Flat Shipping Rate",
-  "Eco Tax", "VAT", "Total" after country update.
-
+  Background: Product is added to cart.
     Given demoshop homepage is opened
 
 
@@ -16,9 +10,9 @@ Feature: For different shipping zones setup different shipping price and taxes.
     And i collect data about Eco Tax
     And i collect data about VAT
     And i change target adress from UK to Latvia
-    And i collect data about Shipping Rate
-    And i collect data about Eco Tax
-    And i collect data about VAT
+    And i collect data about Shipping Rate again
+    And i collect data about Eco Tax again
+    And i collect data about VAT again
     Then i see that Shipping Rate differs between UK and Latvia
     And Eco Tax differs between UK and Latvia
     And  VAT differs between UK and Latvia

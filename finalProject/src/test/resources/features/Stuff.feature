@@ -7,19 +7,33 @@ Feature: User edits his/hers account
     And I press Log In
 
   @elementsPresence
-    When I check is My Account present
-    And I check if Edit Account
-
+    Scenario:
+    When I check elements are present
+    |My Account        |
+    |Edit Account      |
+    |Password          |
+    |Address Book      |
+    |Wish List         |
+    |Order History     |
+    |Downloads         |
+    |Recurring payments|
+    |Reward Points     |
+    |Returns           |
+    |Transactions      |
+    |Newsletter        |
+    |Logout            |
 
   @edit
-  Scenario Outline: I edit account info
+  Scenario: I edit account info
     When I click on Edit Account submenu
-    And I edit "<name>", "<lastName>", "<email>", "<phone>"
-    And I click Continue
-    Then Success message appears
-    Examples:
+    And I edit following info
       | name | lastName | email            | phone  |
       | John | Doe      | newmail@test.com | 098765 |
+    And I click Continue
+    Then Success message appears
+#    Examples:
+#      | name | lastName | email            | phone  |
+#      | John | Doe      | newmail@test.com | 098765 |
 
   @address
   Scenario Outline: I add first Default Address

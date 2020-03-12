@@ -14,10 +14,14 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages_sample.AccountPage;
 import pages_sample.AddressPage;
 import pages_sample.EditAccPage;
 import pages_sample.LogInPage;
 import sun.rmi.runtime.Log;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class MyStepdefs {
 
@@ -25,6 +29,7 @@ public class MyStepdefs {
     static LogInPage logInPage;
     static EditAccPage editAccPage;
     static AddressPage addressPage;
+    static AccountPage accountPage;
 
 
     public MyStepdefs() {
@@ -32,7 +37,7 @@ public class MyStepdefs {
         logInPage = PageFactory.initElements(Hooks.driver, LogInPage.class);
         editAccPage = PageFactory.initElements(Hooks.driver, EditAccPage.class);
         addressPage = PageFactory.initElements(Hooks.driver, AddressPage.class);
-
+        accountPage =  PageFactory.initElements(Hooks.driver, AccountPage.class);
 
     }
 
@@ -133,5 +138,24 @@ public class MyStepdefs {
     @And("^I check old address is not default$")
     public void iCheckOldAddressIsNotDefault() {
         Assert.assertFalse(addressPage.isYesChosen());
+    }
+
+// Elements presence
+
+    @When("^I check \"([^\"]*)\" are present$")
+    public void iCheckArePresent(List<String> listNames) throws Throwable {
+
+    }
+
+    @And("^I edit following info$")
+    public void iEditFollowingInfo() {
+
+    }
+
+    @When("^I check elements are present$")
+    public void iCheckElementsArePresent(List<String> listNames) {
+        for (int i=0; i<listNames.size(); i++){
+            Assert.assertEquals(listNames.get(i), accountPage.listOfItems().get(i).getText());
+        }
     }
 }

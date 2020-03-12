@@ -34,13 +34,23 @@ public class GeoShippingSteps {
     }
 
 
-    @When("^i have created product order in UK$")
+    @And("^i have created product order in UK$")
     public void i_have_created_product_order_in_UK() throws Throwable {
 
     }
 
-    @And("^i collect data about Shipping Rate, Eco Tax and VAT$")
-    public void i_collect_data_about_Shipping_Rate_Eco_Tax_and_VAT() throws Throwable {
+    @And("^i collect data about Shipping Rate$")
+    public void i_collect_data_about_Shipping_Rate() throws Throwable {
+
+    }
+
+    @And("^i collect data about Eco Tax$")
+    public void i_collect_data_about_Eco_Tax() throws Throwable {
+
+    }
+
+    @And("^i collect data about VAT$")
+    public void i_collect_data_about_VAT() throws Throwable {
 
     }
 
@@ -49,13 +59,18 @@ public class GeoShippingSteps {
 
     }
 
-    @And("^i collect data about Shipping Rate, Eco Tax and VAT again$")
-    public void i_collect_data_about_Shipping_Rate_Eco_Tax_and_VAT_again() throws Throwable {
+    @Then("^i see that Shipping Rate differs between UK and Latvia$")
+    public void i_see_that_Shipping_Rate_differs_between_UK_and_Latvia() throws Throwable {
 
     }
 
-    @Then("^i see that Shipping Rate, Eco Tax and VAT differs between UK and Latvia$")
-    public void i_see_that_Shipping_Rate_Eco_Tax_and_VAT_differs_between_UK_and_Latvia() throws Throwable {
+    @And("^Eco Tax differs between UK and Latvia$")
+    public void eco_Tax_differs_between_UK_and_Latvia() throws Throwable {
+
+    }
+
+    @And("^VAT differs between UK and Latvia$")
+    public void vat_differs_between_UK_and_Latvia() throws Throwable {
 
     }
 }

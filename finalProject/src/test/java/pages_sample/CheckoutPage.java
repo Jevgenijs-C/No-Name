@@ -7,10 +7,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
 
 public class CheckoutPage {
-//    driver = new chromdriver();
-
+    //    driver = new chromdriver();
+    WebDriver driver;
+    WebDriverWait wait = new WebDriverWait(driver, 10);
     @FindBy(how = How.XPATH, using = "//a[.='Desktops']")
     private WebElement desktops;
     @FindBy(how = How.XPATH, using = "//a[.='Mac (1)']']")
@@ -21,7 +23,7 @@ public class CheckoutPage {
     private WebElement checkout;
     @FindBy(how = How.XPATH, using = "//input[@value='guest']")
     private WebElement GuestCheckout;
-    @FindBy(how = How.XPATH, using = "//input[@value='Continue']")
+    @FindBy(how = How.CSS, using = "div[class='col-sm-6'] input[value='Continue']")
     private WebElement Step1Continue;
     @FindBy(how = How.CSS, using = "#input-payment-firstname")
     private WebElement Firstname;
@@ -39,19 +41,41 @@ public class CheckoutPage {
     private WebElement PostCode;
     @FindBy(how = How.CSS, using = "#input-payment-country")
     private WebElement Country;
+    Select drpCountry = new Select(driver.findElement(By.cssSelector("#input-payment-country")));
     @FindBy(how = How.XPATH, using = "//option[@value='222']")
     private WebElement UnitedKingdom;
+    @FindBy(how = How.CSS, using = "#input-payment-zone")
+    private WebElement Zone;
+    Select drpZone = new Select(driver.findElement(By.cssSelector("#input-payment-zone")));
     @FindBy(how = How.XPATH, using = "//option[@value='3513']")
     private WebElement Aberdeen;
+    @FindBy(how = How.CSS, using = "div[id='collapse-payment-address'] input[value='Continue']")
+    private WebElement Step2Continue;
+    @FindBy(how = How.CSS, using = "div[id='collapse-shipping-method'] input[value='Continue']")
+    private WebElement Step3Continue;
+    @FindBy(how = How.CSS, using = "input[name='agree']")
+    private WebElement TermsAndConditions;
+    @FindBy(how = How.CSS, using = "input[name='agree']+*")
+    private WebElement Step5Continue;
+    @FindBy(how = How.XPATH, using = "//strong[contains(.,'Shipping')]")
+    private WebElement ShippingRate;
+    @FindBy(how = How.XPATH, using = "//strong[contains(.,'Shipping')]/parent::*/following-sibling::*")
+    private WebElement ShippingRateVALUE;
+    @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'Eco Tax')]")
+    private WebElement EcoTax;
+    @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'Eco Tax')]/parent::*/following-sibling::*")
+    private WebElement EcoTaxVALUE;
+    @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'VAT')]")
+    private WebElement VAT;
+    @FindBy(how = How.XPATH, using = "//td[@colspan='4']/strong[contains(.,'VAT')]/parent::*/following-sibling::*")
+    private WebElement VATVALUE;
+    @FindBy(how = How.CSS, using = "a[href='#collapse-payment-address']")
+    private WebElement BillingDetails;
+    @FindBy(how = How.XPATH, using = "//option[@value='117']")
+    private WebElement Latvia;
+    @FindBy(how = How.XPATH, using = "//option[@value='4053']")
+    private WebElement AdazuNovads;
 
-
-
-
-
-
-
-    WebDriver driver;
-    WebDriverWait wait = new WebDriverWait(driver, 10);
 
     public void setDriver(WebDriver driver) {
         this.driver = driver;
@@ -66,5 +90,33 @@ public class CheckoutPage {
 
 
     }
+
+    public void createOrder() {
+        checkout.click();
+        GuestCheckout = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@value='guest']")));
+        GuestCheckout.click();
+        Step1Continue.click();
+        Firstname.sendKeys("Janis");
+        Lastname.sendKeys("Berzins");
+        EMail.sendKeys("janis@janis.com");
+        Telephone.sendKeys("123");
+        Address.sendKeys("default");
+        City.sendKeys("CityName");
+        PostCode.sendKeys("code123");
+        Country.click();
+        drpCountry.selectByVisibleText("United Kingdom");
+        drpZone.selectByVisibleText("Aberdeenshire");
+        Step2Continue.click();
+        Step3Continue.click();
+        TermsAndConditions.click();
+        Step5Continue.click();
+
+
+    }
+
+ //   public String collectShippingRateData(){
+
+
+    //}
 
 }

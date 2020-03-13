@@ -13,7 +13,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages_sample.CheckoutPage2;
-import pages_sample.LogInPage;
+
 import sun.rmi.runtime.Log;
 
 public class GeoShippingSteps {

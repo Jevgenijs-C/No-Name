@@ -115,6 +115,7 @@ public class CheckoutPage2 {
         // Step2Continue.click();
         wait.until(ExpectedConditions.visibilityOf(Step3Continue)).click();
         //  Step3Continue.click();
+        Thread.sleep(3000);
         wait.until(ExpectedConditions.visibilityOf(TermsAndConditions)).click();
         // TermsAndConditions.click();
         Step5Continue.click();

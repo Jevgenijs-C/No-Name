@@ -6,13 +6,17 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/MyScenarios.feature",
+        features = {"src/test/resources/features/Login.feature",
+                "src/test/resources/features/UserStory12.feature",
+                "src/test/resources/features/Checkout.feature",
+                "src/test/resources/features/Review.feature"},
         plugin = {"pretty", "html:cucumber-report/html-report",
                 "junit:cucumber-report/junit-report.xml",
                 "json:cucumber-report/json-report.json"},
-        tags = {},
+        tags = {/*"@Login", "@AddToCart", "@Checkout", "@UserStory12"*/},
         glue = {"stepDefinitions"}
 )
-public class CucumberRunner {
+public class Runner_UserStory12 {
+
 
 }

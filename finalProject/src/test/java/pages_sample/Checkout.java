@@ -1,19 +1,19 @@
 package pages_sample;
 
+import com.gargoylesoftware.htmlunit.html.DomNode;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import static org.junit.Assert.*;
 
 
 public class Checkout {
-    @FindBy(how = How.XPATH, using = "//*[@id=\"content\"]/div[2]/div[2]/div/div[2]/h4/a")
-    private WebElement CheckoutButton;
-    @FindBy(how = How.XPATH, using = "//*[@id=\"collapse-payment-address\"]/div/form/div[1]/label/input")
+    @FindBy(how = How.CSS, using = "a[title =\"Checkout\"]>i") //"[title=\"Checkout\"] .hidden-md")
+    public WebElement CheckoutButton;
+    @FindBy(how = How.XPATH, using = "//input [@value=\"existing\"]")
     private WebElement SelectBillingDetails;
     @FindBy(how = How.CSS, using = "[id=\"button-payment-address\"]")
-    private WebElement BillingContinue;
-    @FindBy(how = How.XPATH, using = "//*[@id=\"collapse-shipping-address\"]/div/form/div[1]/label/input")
+    public WebElement BillingContinue;
+    @FindBy(how = How.CSS, using = ".radio:nth-child(1) [name=\"shipping_address\"]")
     private WebElement SelectDeliveryDetails;
     @FindBy(how = How.CSS, using = "[id=\"button-shipping-address\"]")
     private WebElement DeliveryContinue;
@@ -29,6 +29,12 @@ public class Checkout {
     private WebElement PaymentMethodContinue;
     @FindBy(how = How.CSS, using = "[id=\"button-confirm\"]")
     private WebElement ConfirmOrder;
+    @FindBy(how = How.CSS, using = "#content h1")
+    public WebElement ConfirmationMessage;
+
+    public String CheckoutPage() {
+        return "http://www.demoshop24.com/index.php?route=checkout/checkout";
+    }
 
     public void clickCheckout() { CheckoutButton.click(); }
     public void clickExistingAddress() { SelectBillingDetails.click(); }
@@ -41,5 +47,6 @@ public class Checkout {
     public void clickAgree() { AgreeCheckbox.click(); }
     public void clickContinueFour() { PaymentMethodContinue.click(); }
     public void clickConfirm() { ConfirmOrder.click(); }
+
 
 }

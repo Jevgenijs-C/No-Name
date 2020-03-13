@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class LogInPage {
+public class LoginPage12 {
 
 
     @FindBy (how = How.ID, using = "input-email")
@@ -15,10 +15,10 @@ public class LogInPage {
     private WebElement loginButton;
 
     public void enterMail(){
-        eMailField.sendKeys("testt@test.com");
+        eMailField.sendKeys("victoriaushkova@gmail.com");
     }
     public void enterPassword(){
-        passwordField.sendKeys("12345");
+        passwordField.sendKeys("bailando153");
     }
     public void logIn(){
         loginButton.click();

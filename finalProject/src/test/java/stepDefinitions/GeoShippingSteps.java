@@ -24,6 +24,7 @@ public class GeoShippingSteps {
         this.driver = Hooks.driver;
         checkoutPage2 = PageFactory.initElements(Hooks.driver, CheckoutPage2.class);
         /*checkoutPage.setDriver(driver);*/
+        checkoutPage2.setDriver(driver);
     }
 
     @Given("^demoshop homepage is opened$")
@@ -39,39 +40,70 @@ public class GeoShippingSteps {
 
     }
 
- /*   @And("^i collect data about Shipping Rate$")
+    @And("^i collect data about Shipping Rate$")
     public void i_collect_data_about_Shipping_Rate() throws Throwable {
-        checkoutPage.GETcollectShippingRateDataUK();
+        checkoutPage2.collectShipRateUK();
 
     }
 
     @And("^i collect data about Eco Tax$")
     public void i_collect_data_about_Eco_Tax() throws Throwable {
-        checkoutPage.GETcollectEcoTaxDataUK();
+        checkoutPage2.collectEcoTaxUK();
     }
 
     @And("^i collect data about VAT$")
     public void i_collect_data_about_VAT() throws Throwable {
-        checkoutPage.GETcollectVATDataUK();
+        checkoutPage2.collectVATUK();
     }
 
     @And("^i change target adress from UK to Latvia$")
     public void i_change_target_adress_from_UK_to_Latvia() throws Throwable {
+        checkoutPage2.changeTargetAdressLatvia();
+    }
 
+    @When("^i collect data about Shipping Rate again$")
+    public void i_collect_data_about_Shipping_Rate_again() throws Throwable {
+        checkoutPage2.collectShipRateLV();
+    }
+
+    @When("^i collect data about Eco Tax again$")
+    public void i_collect_data_about_Eco_Tax_again() throws Throwable {
+        checkoutPage2.collectEcoTaxLV();
+    }
+
+    @When("^i collect data about VAT again$")
+    public void i_collect_data_about_VAT_again() throws Throwable {
+        checkoutPage2.collectVATLV();
     }
 
     @Then("^i see that Shipping Rate differs between UK and Latvia$")
     public void i_see_that_Shipping_Rate_differs_between_UK_and_Latvia() throws Throwable {
 
+        System.out.println("UK Shipping rate = " + checkoutPage2.collectShipRateUK());
+        System.out.println("LV Shipping rate = " + checkoutPage2.collectShipRateLV());
+        // System.out.println(checkoutPage2.collectShipRateUK().equals(checkoutPage2.collectShipRateLV())); //true
+
+        Assert.assertFalse(checkoutPage2.collectShipRateUK().equals(checkoutPage2.collectShipRateLV()));
     }
 
     @And("^Eco Tax differs between UK and Latvia$")
     public void eco_Tax_differs_between_UK_and_Latvia() throws Throwable {
-
+        String a = checkoutPage2.collectEcoTaxLV();
+        if (a == null) {
+            System.out.println("Eco Tax is not displayed");
+        } else {
+            Assert.assertFalse(checkoutPage2.collectEcoTaxUK().equals(checkoutPage2.collectEcoTaxLV()));
+        }
     }
 
     @And("^VAT differs between UK and Latvia$")
     public void vat_differs_between_UK_and_Latvia() throws Throwable {
+        String a = checkoutPage2.collectVATLV();
+        if (a == null) {
+            System.out.println("VAT is not displayed");
+        } else {
+            Assert.assertFalse(checkoutPage2.collectVATUK().equals(checkoutPage2.collectVATLV()));
+        }
 
-    }*/
+    }
 }
